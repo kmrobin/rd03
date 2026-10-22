@@ -1,4 +1,5 @@
 .hlx/*
+.cursor/*
 coverage/*
 logs/*
 node_modules/*
@@ -11,12 +12,3 @@ helix-importer-ui
 # Ensure these files are tracked
 !CLAUDE.md
 !AGENTS.md
-
-# AI tool / agent local config
-.cursor/
-.claude/
-.windsurf/
-.gemini/
-.codex/
-.continue/
-.aider*

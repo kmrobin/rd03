@@ -40,34 +40,3 @@ The plugin reads its existing `/config/placeholders.json` sheet from the
 plugin's own origin to avoid cross-origin requests from DA preview to live EDS.
 Preview the sheet for preview testing and publish it for live use.
 Do not store credentials in this publicly served sheet.
-
-### Comment mentions and reassignment
-
-Opening a task's comments loads active Workfront users through the existing
-`wf-actions` gateway, in pages of 100. The list is reused while the plugin is
-open. A failed user lookup shows an error and a retry button; ordinary comments
-can still be posted.
-
-Use **Tag a user** to insert an `@Name` in the comment and add the user's
-Workfront Note tag. Multiple users can be tagged. Removing a tag removes the
-notification recipient, not the plain text; deleting the `@Name` from the
-comment also excludes that recipient when posting.
-
-The **Assign to** dropdown initially keeps the current assignment. Selecting
-a different user changes **Post** to **Assign & Post**; a nonempty comment
-is required. This updates the task's primary `assignedToID`, not its complete
-multi-assignee/team/role allocation. The task remains visible until the task
-list is refreshed.
-
-Reassignment is confirmed before the comment is posted. These are separate
-Workfront operations, not a transaction: if assignment fails, the comment is
-not sent; if assignment succeeds but posting fails, the draft is retained,
-the updated assignee is retained locally, and the partial success is shown.
-Check Workfront before retrying a request whose outcome was not confirmed.
-
-The gateway must forward user-search filters/pagination, task PUT fields, and
-the Note `updates` JSON parameter (including `tags` entries with `objID`,
-`objObjCode: USER`, and `userID`). Workfront permissions and notification
-preferences still apply. Validate real tagging and reassignment with a test
-task before deployment; browser tests using mocked responses do not verify
-gateway forwarding or actual notification delivery.
