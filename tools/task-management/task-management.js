@@ -1115,30 +1115,21 @@ class RefDemoTaskManagement extends LitElement {
             <p class="comments-error" role="alert">${this._usersError}</p>
             <button type="button" @click=${this.loadWorkfrontUsers}>Retry loading users</button>
           ` : nothing}
-          <label class="comment-user-field">
-            Tag a user
-            <select
-              aria-label="Tag a user"
-              ?disabled=${this._usersState !== 'loaded' || this._commentPosting}
-              @change=${(e) => { this.addMention(e.target.value); e.target.value = ''; }}>
-              <option value="">Select a user to mention</option>
-              ${this._workfrontUsers.map((user) => html`
-                <option value=${user.ID}
-                  ?disabled=${this._mentionedUsers.some((item) => item.ID === user.ID)}>
-                  ${user.name || user.ID}${user.emailAddr ? ` (${user.emailAddr})` : ''}
-                </option>`)}
-            </select>
-          </label>
-          ${this._mentionedUsers.length ? html`
-            <div class="comment-mentions" aria-label="Tagged users">
-              ${this._mentionedUsers.map((user) => html`
-                <button type="button" ?disabled=${this._commentPosting}
-                  aria-label=${`Remove tag for ${user.name || user.ID}`}
-                  @click=${() => {
-    this._mentionedUsers = this._mentionedUsers.filter((item) => item.ID !== user.ID);
-  }}>${user.name || user.ID} (remove tag)</button>`)}
-            </div>` : nothing}
-          <div class="comment-form-actions">
+          <div class="comment-user-fields">
+            <label class="comment-user-field">
+              Tag a user
+              <select
+                aria-label="Tag a user"
+                ?disabled=${this._usersState !== 'loaded' || this._commentPosting}
+                @change=${(e) => { this.addMention(e.target.value); e.target.value = ''; }}>
+                <option value="">Select a user to mention</option>
+                ${this._workfrontUsers.map((user) => html`
+                  <option value=${user.ID}
+                    ?disabled=${this._mentionedUsers.some((item) => item.ID === user.ID)}>
+                    ${user.name || user.ID}${user.emailAddr ? ` (${user.emailAddr})` : ''}
+                  </option>`)}
+              </select>
+            </label>
             <label class="comment-user-field">
               Assign to
               <select aria-label="Assign to"
@@ -1154,6 +1145,17 @@ class RefDemoTaskManagement extends LitElement {
                 </option>`)}
               </select>
             </label>
+          </div>
+          ${this._mentionedUsers.length ? html`
+            <div class="comment-mentions" aria-label="Tagged users">
+              ${this._mentionedUsers.map((user) => html`
+                <button type="button" ?disabled=${this._commentPosting}
+                  aria-label=${`Remove tag for ${user.name || user.ID}`}
+                  @click=${() => {
+    this._mentionedUsers = this._mentionedUsers.filter((item) => item.ID !== user.ID);
+  }}>${user.name || user.ID} (remove tag)</button>`)}
+            </div>` : nothing}
+          <div class="comment-form-actions">
             <button type="submit" class="comment-submit" ?disabled=${!canPost}>
               ${this._commentPosting ? 'Posting…' : submitLabel}
             </button>
