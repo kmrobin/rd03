@@ -53,6 +53,12 @@ Workfront Note tag. Multiple users can be tagged. Removing a tag removes the
 notification recipient, not the plain text; deleting the `@Name` from the
 comment also excludes that recipient when posting.
 
+Both user fields support typing a name/email or choosing from the browser's
+native suggestion dropdown. Choose a complete suggested user value; incomplete
+or unmatched assignee searches disable posting. Select the current assignee's
+`(keep assignment)` suggestion to cancel reassignment. Native suggestion
+appearance and keyboard navigation depend on the browser.
+
 The **Assign to** dropdown initially keeps the current assignment. Selecting
 a different user changes **Post** to **Assign & Post**; a nonempty comment
 is required. This updates the task's primary `assignedToID`, not its complete

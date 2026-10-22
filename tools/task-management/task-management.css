@@ -553,7 +553,8 @@
   gap: 8px;
 }
 
-.task-comments .comment-user-field select {
+.task-comments .comment-user-field input {
+  box-sizing: border-box;
   width: 100%;
   min-width: 0;
   padding: 6px;
